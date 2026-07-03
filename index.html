@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Pengurangan Bersusun - Modul Matematika SMP</title>
+    <!-- Tailwind CSS Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:wght@400;600;700;900&display=swap');
+        
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .font-kids {
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        /* Line through style for borrowed numbers */
+        .borrowed-cross {
+            position: relative;
+            color: #ef4444;
+        }
+        .borrowed-cross::after {
+            content: "";
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            width: 90%;
+            height: 3px;
+            background-color: #ef4444;
+            transform: rotate(-25deg);
+        }
+
+        .step-highlight {
+            animation: pulseBg 1.5s infinite;
+        }
+
+        @keyframes pulseBg {
+            0%, 100% { background-color: rgba(254, 243, 199, 1); }
+            50% { background-color: rgba(253, 230, 138, 1); }
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- TOP HEADER -->
+    <header class="bg-indigo-600 border-b-4 border-indigo-800 text-white p-4 sticky top-0 z-50 shadow-md">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center space-x-3">
+                <span class="text-3xl">🚀</span>
+                <div>
+                    <h1 class="font-kids text-2xl font-black tracking-wide">Master Pengurangan Bersusun</h1>
+                    <p class="text-xs text-indigo-200">Program Pemulihan & Penguatan Matematika Dasar SMP</p>
+                </div>
+            </div>
+            <!-- Progress / Achievements -->
+            <div class="flex items-center space-x-3 bg-indigo-700 px-4 py-1.5 rounded-full border border-indigo-500">
+                <span class="text-amber-300 font-bold">⭐ Skor Kuis:</span>
+                <span id="header-stars" class="font-black text-white font-kids">0 ⭐</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="bg-white border-b border-slate-200 sticky top-[72px] z-40 shadow-sm">
+        <div class="max-w-6xl mx-auto flex overflow-x-auto justify-start md:justify-center p-2 gap-2 no-scrollbar">
+            <button onclick="switchTab('intro')" id="tab-intro" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap bg-indigo-50 text-indigo-700 border-2 border-indigo-200">
+                👋 Selamat Datang
+            </button>
+            <button onclick="switchTab('warmup')" id="tab-warmup" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap text-slate-600 hover:bg-slate-50 border-2 border-transparent">
+                🔥 Pemanasan (Warm-up)
+            </button>
+            <button onclick="switchTab('materi')" id="tab-materi" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap text-slate-600 hover:bg-slate-50 border-2 border-transparent">
+                🧮 Konsep &amp; Simulator Pengurangan
+            </button>
+            <button onclick="switchTab('quiz')" id="tab-quiz" class="nav-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap text-slate-600 hover:bg-slate-50 border-2 border-transparent">
+                🎯 Kuis Mandiri
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN INTERACTIVE CONTAINER -->
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 md:p-6">
+        
+        <!-- ================= TAB: INTRODUCTION ================= -->
+        <section id="sec-intro" class="tab-content block space-y-6">
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl p-6 md:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none text-9xl">📐</div>
+                <div class="max-w-2xl space-y-4">
+                    <span class="bg-indigo-400/50 text-white font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Modul Penguatan</span>
+                    <h2 class="text-3xl md:text-5xl font-black font-kids leading-tight">Pengurangan Bersusun Adalah Kunci Aljabar!</h2>
+                    <p class="text-indigo-100 text-sm md:text-base leading-relaxed">
+                        Pernahkah kamu salah menghitung saat menyelesaikan persamaan linear, mencari perubahan suhu, atau menghitung selisih koordinat kartesius? Seringkali, masalahnya bukan pada rumus fisikanya, melainkan pada ketidaktelitian kita saat melakukan <b>pengurangan bersusun dengan teknik meminjam</b>. Modul ini hadir untuk membangun kembali logikamu secara visual dan cepat!
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-3">
+                        <button onclick="switchTab('warmup')" class="bg-white text-indigo-700 hover:bg-indigo-50 font-black px-6 py-3 rounded-2xl shadow-md transition transform active:scale-95">
+                            Mulai Kuis Pemanasan 🔥
+                        </button>
+                        <button onclick="switchTab('materi')" class="bg-indigo-700/40 text-white hover:bg-indigo-700/60 border border-indigo-400 font-bold px-6 py-3 rounded-2xl transition">
+                            Pelajari Simulator Pengurangan 🧮
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Goals Card -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <h3 class="font-black text-slate-800 text-xl font-kids flex items-center gap-2">
+                    <span>🎯</span> Tujuan Pembelajaran
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-indigo-50/50 rounded-2xl border border-indigo-100 space-y-2">
+                        <span class="text-2xl">🧠</span>
+                        <h4 class="font-bold text-indigo-900 text-sm">Pemulihan Konsep "Meminjam"</h4>
+                        <p class="text-slate-600 text-xs">Memahami secara logika nilai tempat desimal saat meminjam 1 puluhan yang bernilai 10 dari kolom kiri.</p>
+                    </div>
+                    <div class="p-4 bg-purple-50/50 rounded-2xl border border-purple-100 space-y-2">
+                        <span class="text-2xl">⚡</span>
+                        <h4 class="font-bold text-purple-900 text-sm">Kecepatan &amp; Presisi Aritmatika</h4>
+                        <p class="text-slate-600 text-xs">Mengurangi kesalahan sepele (careless mistakes) dalam ujian fisika, matematika, dan kimia kelas VII - IX SMP.</p>
+                    </div>
+                    <div class="p-4 bg-amber-50/50 rounded-2xl border border-amber-100 space-y-2">
+                        <span class="text-2xl">🧩</span>
+                        <h4 class="font-bold text-amber-900 text-sm">Persiapan Materi Aljabar</h4>
+                        <p class="text-slate-600 text-xs">Menguasai pengurangan koefisien dan konstanta negatif pada bab aljabar dengan pondasi bilangan yang kokoh.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real World Connections Section -->
+            <div class="space-y-4">
+                <h3 class="font-black text-slate-800 text-xl font-kids flex items-center gap-2">
+                    <span>🌍</span> Mengapa Pengurangan Penting di Dunia Nyata? (Koneksi SMP)
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Connection 1 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-3">
+                        <div class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-2xl">📱</div>
+                        <h4 class="font-black text-slate-800 text-lg font-kids">1. E-Wallet &amp; Pengeluaran Gadget</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Saldo dompet digitalmu mula-mula adalah Rp 150.000. Kamu membeli paket internet bulanan seharga Rp 85.500. Untuk mengetahui sisa saldomu, kamu harus melakukan pengurangan: 
+                            <span class="block text-center font-mono font-bold text-indigo-700 bg-indigo-50 p-2 my-2 rounded-xl border border-indigo-100">150.000 − 85.500 = 64.500</span>
+                            Jika salah satu angka nol saja tidak dipinjam dengan benar, maka laporan keuanganmu akan kacau!
+                        </p>
+                    </div>
+
+                    <!-- Connection 2 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-3">
+                        <div class="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center text-2xl">🌡️</div>
+                        <h4 class="font-black text-slate-800 text-lg font-kids">2. Termodinamika &amp; Suhu (Fisika)</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Dalam praktikum IPA Fisika kelas VII, suhu air panas mulanya 105°C. Setelah dimasukkan ke dalam gelas berisi es batu, suhunya turun sebesar 37°C. Berapa suhu akhir air tersebut? 
+                            <span class="block text-center font-mono font-bold text-sky-700 bg-sky-50 p-2 my-2 rounded-xl border border-sky-100">105 − 37 = 68°C</span>
+                            Pengurangan bersusun dengan teknik meminjam di sini sangat krusial untuk menganalisis kalor jenis zat!
+                        </p>
+                    </div>
+
+                    <!-- Connection 3 -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-3">
+                        <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-2xl">🎮</div>
+                        <h4 class="font-black text-slate-800 text-lg font-kids">3. Perhitungan HP (Health Points) Game</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Karakter RPG jagoanmu memiliki total HP sebanyak 520 HP. Saat berduel melawan bos monster, karaktermu terkena serangan kritis (critical damage) sebesar 167 HP. Berapakah sisa HP-mu sekarang? 
+                            <span class="block text-center font-mono font-bold text-amber-700 bg-amber-50 p-2 my-2 rounded-xl border border-amber-100">520 − 167 = 353 HP</span>
+                            Perhitungan instan ini menentukan keputusanmu untuk menggunakan healing potion atau menyerang balik!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB: WARM-UP (PEMANASAN) ================= -->
+        <section id="sec-warmup" class="tab-content hidden space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-3xl font-black text-slate-800 font-kids">🔥 Pemanasan: Sebelum Kita Mulai Meminjam</h2>
+                <p class="text-slate-500 text-sm">Ayo segarkan kemampuan penjumlahan dasar (puluhan &amp; ratusan) terlebih dahulu untuk memastikan pondasi berpikirmu sudah siap.</p>
+            </div>
+
+            <!-- Warm-up Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Soal 1 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <span class="bg-indigo-100 text-indigo-700 font-bold text-xs px-3 py-1 rounded-full uppercase">Soal Pemanasan 1</span>
+                    <p class="text-lg font-semibold text-slate-700">Tentukan nilai penjumlahan dari:</p>
+                    <div class="text-3xl font-mono font-black text-indigo-700 tracking-wider">45 + 38 = ?</div>
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="warmup-ans1" class="w-28 px-3 py-2 border rounded-xl font-black text-slate-800 text-lg" placeholder="Hasil">
+                        <button onclick="checkWarmupAns('warmup-ans1', 83, 'warmup-fb1')" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition">Cek</button>
+                    </div>
+                    <div id="warmup-fb1" class="text-sm font-bold min-h-[20px]"></div>
+                </div>
+
+                <!-- Soal 2 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <span class="bg-indigo-100 text-indigo-700 font-bold text-xs px-3 py-1 rounded-full uppercase">Soal Pemanasan 2</span>
+                    <p class="text-lg font-semibold text-slate-700">Tentukan nilai penjumlahan dari:</p>
+                    <div class="text-3xl font-mono font-black text-indigo-700 tracking-wider">125 + 67 = ?</div>
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="warmup-ans2" class="w-28 px-3 py-2 border rounded-xl font-black text-slate-800 text-lg" placeholder="Hasil">
+                        <button onclick="checkWarmupAns('warmup-ans2', 192, 'warmup-fb2')" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition">Cek</button>
+                    </div>
+                    <div id="warmup-fb2" class="text-sm font-bold min-h-[20px]"></div>
+                </div>
+
+                <!-- Soal 3 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <span class="bg-indigo-100 text-indigo-700 font-bold text-xs px-3 py-1 rounded-full uppercase">Soal Pemanasan 3</span>
+                    <p class="text-lg font-semibold text-slate-700">Tentukan nilai penjumlahan dari:</p>
+                    <div class="text-3xl font-mono font-black text-indigo-700 tracking-wider">250 + 175 = ?</div>
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="warmup-ans3" class="w-28 px-3 py-2 border rounded-xl font-black text-slate-800 text-lg" placeholder="Hasil">
+                        <button onclick="checkWarmupAns('warmup-ans3', 425, 'warmup-fb3')" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition">Cek</button>
+                    </div>
+                    <div id="warmup-fb3" class="text-sm font-bold min-h-[20px]"></div>
+                </div>
+
+                <!-- Soal 4 -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                    <span class="bg-indigo-100 text-indigo-700 font-bold text-xs px-3 py-1 rounded-full uppercase">Soal Pemanasan 4</span>
+                    <p class="text-lg font-semibold text-slate-700">Tentukan nilai penjumlahan dari:</p>
+                    <div class="text-3xl font-mono font-black text-indigo-700 tracking-wider">489 + 312 = ?</div>
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="warmup-ans4" class="w-28 px-3 py-2 border rounded-xl font-black text-slate-800 text-lg" placeholder="Hasil">
+                        <button onclick="checkWarmupAns('warmup-ans4', 801, 'warmup-fb4')" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition">Cek</button>
+                    </div>
+                    <div id="warmup-fb4" class="text-sm font-bold min-h-[20px]"></div>
+                </div>
+            </div>
+
+            <!-- Warmup Complete Action -->
+            <div class="bg-indigo-50 border border-indigo-200 rounded-3xl p-6 text-center space-y-3">
+                <h3 class="font-black text-indigo-900 text-xl font-kids">Sudah Menyelesaikan Semua Pemanasan?</h3>
+                <p class="text-indigo-700 text-sm">Jika kamu sudah mendapatkan centang hijau di semua soal di atas, mari kita melangkah ke konsep inti pengurangan bersusun!</p>
+                <button onclick="switchTab('materi')" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-xl text-sm shadow-md transition">
+                    Lanjut ke Konsep Utama 🚀
+                </button>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB: CONCEPT & SIMULATOR ================= -->
+        <section id="sec-materi" class="tab-content hidden space-y-6">
+            <div class="border-b border-slate-200 pb-4">
+                <h2 class="text-3xl font-black text-slate-800 font-kids">🧮 Konsep &amp; Simulator Pengurangan Bersusun</h2>
+                <p class="text-slate-500 text-sm">Gunakan mesin hitung khusus pengurangan bersusun di bawah ini untuk mengamati proses meminjam (borrowing) secara visual dan interaktif.</p>
+            </div>
+
+            <!-- The Core Theory -->
+            <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+                <h3 class="font-black text-slate-800 text-lg font-kids flex items-center gap-1.5">
+                    <span>💡</span> Cara Berpikir Saat Melakukan Teknik Meminjam (Borrowing)
+                </h3>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Pengurangan bersusun dilakukan kolom demi kolom dari <b>kanan ke kiri</b> (Satuan &rarr; Puluhan &rarr; Ratusan &rarr; Ribuan). 
+                    Jika angka yang di atas lebih kecil daripada angka di bawah, maka kita <b>meminjam 1 angka</b> dari kolom sebelah kirinya.
+                </p>
+                <div class="p-4 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl text-amber-900 text-xs md:text-sm space-y-1">
+                    <p class="font-black">📌 Aturan Emas Meminjam:</p>
+                    <p>
+                        "Ketika kamu meminjam 1 dari kolom kiri, angka di kolom kiri tersebut akan <span class="font-bold text-rose-600">berkurang 1</span>. Namun, nilai 1 yang dipinjam tersebut bertransformasi menjadi <span class="font-bold text-indigo-600">10</span> saat digabungkan dengan angka kolom tempatmu saat ini."
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Interactive Vertical Subtraction Simulator -->
+                <div class="lg:col-span-7 bg-white rounded-2xl p-6 border border-slate-200 shadow-md space-y-6">
+                    <div class="text-center">
+                        <h3 class="font-black text-indigo-900 text-lg font-kids">🧮 Mesin Pengurangan Bersusun</h3>
+                        <p class="text-xs text-slate-500">Pilih tipe angka bawaan (*preset*) atau ketik angka pilihanmu sendiri untuk menjalankan animasi simulasi.</p>
+                    </div>
+
+                    <!-- Simulator Control Panel -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">Angka Atas (A)</label>
+                            <input type="number" id="vsim-a" min="10" max="9999" value="523" class="w-full px-3 py-2 border rounded-lg font-black text-indigo-900" onchange="resetVsim()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">Angka Bawah (B)</label>
+                            <input type="number" id="vsim-b" min="10" max="9999" value="167" class="w-full px-3 py-2 border rounded-lg font-black text-indigo-900" onchange="resetVsim()">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 mb-1">Operasi</label>
+                            <input type="text" value="PENGURANGAN (-)" class="w-full px-3 py-2 border rounded-lg font-black text-slate-500 bg-slate-100" readonly>
+                        </div>
+                    </div>
+
+                    <!-- Presets buttons -->
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        <button onclick="loadVsimPreset(72, 38)" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-xs font-bold rounded-lg text-slate-700 transition">Puluhan dengan Meminjam</button>
+                        <button onclick="loadVsimPreset(523, 167)" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-xs font-bold rounded-lg text-indigo-700 border border-indigo-200 transition">Ratusan (Sedang)</button>
+                        <button onclick="loadVsimPreset(1005, 378)" class="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-xs font-bold rounded-lg text-rose-700 border border-rose-200 transition">Ribuan (Menantang - Kasus Nol)</button>
+                    </div>
+
+                    <!-- Visual Board -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-6 min-h-[250px] flex flex-col justify-between items-center relative overflow-hidden shadow-inner">
+                        <span class="absolute top-2 right-2 text-[10px] uppercase font-bold text-slate-500">Papan Simulasi Bersusun</span>
+                        
+                        <div id="vsim-display-container" class="my-auto font-mono text-3xl md:text-4xl tracking-widest text-right space-y-2">
+                            <!-- Dynamically updated layout -->
+                        </div>
+
+                        <!-- Stepper controls -->
+                        <div class="w-full flex justify-between items-center mt-4 pt-4 border-t border-slate-800">
+                            <button onclick="changeVsimStep(-1)" id="btn-vsim-prev" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold transition">Kembali</button>
+                            <span id="vsim-step-text" class="text-xs font-bold text-indigo-400">Langkah 1/5</span>
+                            <button onclick="changeVsimStep(1)" id="btn-vsim-next" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold transition">Lanjut</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step Description Card -->
+                <div class="lg:col-span-5 bg-white rounded-2xl p-6 border border-slate-200 shadow-md flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <h3 class="font-black text-slate-700 text-lg font-kids">💡 Cara Kerja Langkah Ini:</h3>
+                        <div id="vsim-explanation" class="bg-indigo-50 border border-indigo-100 rounded-xl p-5 text-sm text-slate-700 min-h-[180px] flex flex-col justify-center leading-relaxed font-semibold">
+                            Pilih angka di samping lalu tekan tombol "Lanjut" untuk memulai simulasi hitung bersusun.
+                        </div>
+                    </div>
+
+                    <!-- Pro-tips -->
+                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl space-y-2">
+                        <h4 class="font-bold text-amber-900 text-xs uppercase">📌 Panduan Meminjam Beruntun:</h4>
+                        <ul class="text-xs text-amber-800 space-y-1 list-disc pl-4">
+                            <li>Jika angka di kiri bernilai <span class="font-bold">0</span> saat ingin dipinjam, maka angka nol tersebut harus meminjam terlebih dahulu dari angka di sebelah kirinya lagi.</li>
+                            <li>Luruskan secara presisi kolom ribuan, ratusan, puluhan, dan satuan agar tidak salah kurung.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TAB: THE REINFORCEMENT QUIZ ================= -->
+        <section id="sec-quiz" class="tab-content hidden space-y-6">
+            <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                <div>
+                    <h2 class="text-3xl font-black text-slate-800 font-kids">🎯 Kuis Pengurangan Bersusun Mandiri</h2>
+                    <p class="text-slate-500 text-sm">Asah kemampuan pengurangan bersusunmu! Pilih tingkat kesulitan lalu tebak jawaban yang paling tepat.</p>
+                </div>
+                <!-- Mini Progress Tracker -->
+                <div class="flex items-center space-x-2 bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-2 self-start sm:self-auto">
+                    <span class="text-xs text-indigo-700 font-bold">Akurasi Sesi:</span>
+                    <span id="quiz-session-stats" class="font-black text-indigo-900 font-kids">0 / 0 Dijawab</span>
+                </div>
+            </div>
+
+            <!-- Quiz Layout Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Left: Difficulty Mode Selection -->
+                <div class="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-5">
+                    
+                    <div class="space-y-2">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">1. Pilih Tingkat Kesulitan</span>
+                        <div class="flex flex-col gap-2" id="quiz-mode-container">
+                            <button onclick="setQuizMode('puluhan')" id="btn-mode-puluhan" class="w-full py-2.5 px-4 text-xs font-black rounded-xl border-2 border-indigo-500 bg-indigo-600 text-white text-left shadow-sm flex justify-between items-center">
+                                <span>🎯 Puluhan (Meminjam Sedang)</span>
+                                <span>⚡</span>
+                            </button>
+                            <button onclick="setQuizMode('ratusan')" id="btn-mode-ratusan" class="w-full py-2.5 px-4 text-xs font-semibold rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 text-left transition">
+                                <span>🎯 Ratusan (Meminjam Banyak)</span>
+                            </button>
+                            <button onclick="setQuizMode('ribuan')" id="btn-mode-ribuan" class="w-full py-2.5 px-4 text-xs font-semibold rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 text-left transition">
+                                <span>🎯 Ribuan (Kompleks)</span>
+                            </button>
+                            <button onclick="setQuizMode('kasus_nol')" id="btn-mode-kasus_nol" class="w-full py-2.5 px-4 text-xs font-semibold rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 text-left transition">
+                                <span>🔥 Kasus Nol (Meminjam Beruntun)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Reset Score Button -->
+                    <button onclick="resetQuizStats()" class="w-full mt-4 py-2 border border-slate-200 text-slate-500 hover:bg-slate-50 text-xs font-bold rounded-lg transition">
+                        Reset Statistik Sesi 🔄
+                    </button>
+                </div>
+
+                <!-- Right: Active Question Frame (Dynamic Generation) -->
+                <div class="lg:col-span-8 bg-white rounded-2xl p-6 border border-slate-200 shadow-md flex flex-col justify-between min-h-[420px]">
+                    <div class="space-y-6">
+                        <!-- Heading of Question Card -->
+                        <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+                            <span id="quiz-active-badge" class="px-2.5 py-1 bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-black rounded-lg uppercase tracking-wide">
+                                Kuis Pengurangan Bersusun
+                            </span>
+                            <span id="quiz-active-status" class="text-xs font-bold text-slate-400">Menunggu Jawaban</span>
+                        </div>
+
+                        <!-- Question Prompt -->
+                        <div class="space-y-3">
+                            <span class="text-xs text-slate-400 font-bold uppercase tracking-wider font-kids">Tantangan:</span>
+                            <div class="flex items-center gap-4">
+                                <h3 id="quiz-active-prompt" class="text-3xl md:text-4xl font-black text-slate-800 font-kids leading-relaxed">
+                                    00 - 00 = ?
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Answers Selection -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2" id="quiz-active-options">
+                            <!-- Options rendered dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Footer of Active Frame (New Question control) -->
+                    <div class="flex justify-between items-center border-t border-slate-100 pt-4 mt-6">
+                        <div class="text-xs text-slate-400 font-bold">
+                            Skor benar bernilai <span class="text-indigo-600">+10 ⭐</span>
+                        </div>
+                        <button onclick="generateNextQuizQuestion()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-1.5 shadow-sm">
+                            Soal Baru 🔁
+                        </button>
+                    </div>
+
+                    <!-- Interactive solution step-by-step display upon submission -->
+                    <div id="quiz-active-solution-card" class="hidden mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2 text-slate-700 text-sm">
+                        <span class="font-black text-amber-900 font-kids flex items-center gap-1">💡 Pembahasan Langkah Kerja:</span>
+                        <div id="quiz-active-solution-text" class="leading-relaxed text-xs space-y-2">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 border-t-4 border-slate-950 text-slate-400 text-center text-xs p-4 mt-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+            <p>© 2026 Modul Penguatan Pengurangan Bersusun SMP. Dirancang interaktif agar matematika ramah dan logis.</p>
+            <div class="flex space-x-3">
+                <span class="opacity-75">Made with 💚 in Indonesia</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS State and Interactions -->
+    <script>
+        // --- SOUND SYNTHESIZER ---
+        let audioCtx = null;
+        function playSfx(type) {
+            try {
+                if (!audioCtx) {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.08);
+                } else if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                } else if (type === 'wrong') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(150, audioCtx.currentTime + 0.25);
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }
+            } catch (e) {
+                console.log("Audio API not supported.");
+            }
+        }
+
+        // --- GLOBAL APP STATE ---
+        let appState = {
+            activeTab: 'intro',
+            vsim: {
+                a: 523,
+                b: 167,
+                currentStep: 0,
+                steps: []
+            },
+            quiz: {
+                mode: 'puluhan',    // 'puluhan', 'ratusan', 'ribuan', 'kasus_nol'
+                currentQuestion: null,
+                answered: false,
+                chosenIdx: -1,
+                sessionCorrect: 0,
+                sessionTotal: 0
+            },
+            quizScores: 0 // stars accumulated
+        };
+
+        // --- TAB NAVIGATION ---
+        function switchTab(tabId) {
+            playSfx('click');
+            
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show active tab
+            document.getElementById('sec-' + tabId).classList.remove('hidden');
+
+            // Reset tab button states
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap text-slate-600 hover:bg-slate-50 border-2 border-transparent";
+            });
+
+            // Set active class
+            document.getElementById('tab-' + tabId).className = "nav-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all whitespace-nowrap bg-indigo-50 text-indigo-700 border-2 border-indigo-200";
+            
+            appState.activeTab = tabId;
+
+            // Custom tab trigger setup
+            if (tabId === 'materi') {
+                resetVsim();
+            } else if (tabId === 'quiz') {
+                initQuiz();
+            }
+        }
+
+        // ================= WARM-UP SUBMISSION =================
+        function checkWarmupAns(inputId, correctAns, feedbackId) {
+            const val = parseInt(document.getElementById(inputId).value);
+            const fb = document.getElementById(feedbackId);
+
+            if (isNaN(val)) {
+                fb.textContent = "⚠️ Isilah jawabanmu terlebih dahulu.";
+                fb.className = "text-sm font-bold text-amber-600 mt-2";
+                playSfx('wrong');
+                return;
+            }
+
+            if (val === correctAns) {
+                fb.textContent = "✅ Benar sekali! Langkah berpikirmu solid.";
+                fb.className = "text-sm font-bold text-emerald-600 mt-2";
+                playSfx('correct');
+            } else {
+                fb.textContent = "❌ Belum tepat. Coba cek kembali penjumlahan satuannya ya.";
+                fb.className = "text-sm font-bold text-rose-600 mt-2";
+                playSfx('wrong');
+            }
+        }
+
+
+        // ================= SUBTRACTION SIMULATOR ENGINE =================
+        function loadVsimPreset(a, b) {
+            document.getElementById('vsim-a').value = a;
+            document.getElementById('vsim-b').value = b;
+            resetVsim();
+        }
+
+        function resetVsim() {
+            let valA = parseInt(document.getElementById('vsim-a').value) || 0;
+            let valB = parseInt(document.getElementById('vsim-b').value) || 0;
+
+            if (valA < valB) {
+                // Swap so A is always larger for standard elementary borrowing demos
+                let temp = valA;
+                valA = valB;
+                valB = temp;
+                document.getElementById('vsim-a').value = valA;
+                document.getElementById('vsim-b').value = valB;
+            }
+
+            appState.vsim.a = valA;
+            appState.vsim.b = valB;
+            appState.vsim.currentStep = 0;
+            
+            generateVsimSteps();
+            renderVsim();
+        }
+
+        function generateVsimSteps() {
+            const steps = [];
+            const strA = appState.vsim.a.toString();
+            const strB = appState.vsim.b.toString();
+
+            const maxLen = Math.max(strA.length, strB.length);
+            const padA = strA.padStart(maxLen, ' ');
+            const padB = strB.padStart(maxLen, ' ');
+
+            // Initial Step
+            steps.push({
+                type: 'init',
+                explanation: `<b>Langkah Awal: Penyelarasan Kolom</b><br>Tulis kedua angka secara bertumpuk. Pastikan digit paling kanan (Satuan) lurus sejajar ke bawah sesuai nilai tempatnya.`,
+                carries: Array(maxLen).fill(' '),
+                borrows: Array(maxLen).fill(' '),
+                activeCol: -1,
+                currentRes: Array(maxLen).fill(' ')
+            });
+
+            // SUBTRACTION (With Borrowing check)
+            let borrows = Array(maxLen).fill(' ');
+            let results = Array(maxLen).fill(' ');
+            let arrA = padA.split('').map(x => x === ' ' ? 0 : parseInt(x));
+            let arrB = padB.split('').map(x => x === ' ' ? 0 : parseInt(x));
+
+            for (let i = maxLen - 1; i >= 0; i--) {
+                let digA = arrA[i];
+                let digB = arrB[i];
+
+                let stepExplanation = `<b>Kolom Ke-${maxLen - i} (Kanan ke Kiri):</b><br>`;
+
+                if (digA < digB) {
+                    stepExplanation += `Karena angka atas (${digA}) lebih kecil daripada angka bawah (${digB}), kita harus <b>meminjam 1 puluhan (bernilai 10)</b> dari kolom sebelah kiri.<br>`;
+                    
+                    // Find next non-zero left neighbor to borrow from
+                    let borrowIdx = i - 1;
+                    while (borrowIdx >= 0 && arrA[borrowIdx] === 0) {
+                        borrowIdx--;
+                    }
+
+                    if (borrowIdx >= 0) {
+                        arrA[borrowIdx]--;
+                        borrows[borrowIdx] = arrA[borrowIdx].toString();
+                        
+                        // Propagate borrowing through zeros if any
+                        for (let k = borrowIdx + 1; k < i; k++) {
+                            arrA[k] = 9;
+                            borrows[k] = '9';
+                        }
+                        stepExplanation += `Angka kiri dipinjam sehingga berkurang menjadi <b>${arrA[borrowIdx]}</b>. `;
+                    }
+
+                    digA += 10;
+                    borrows[i] = digA.toString();
+                    const diff = digA - digB;
+                    results[i] = diff.toString();
+
+                    stepExplanation += `Nilai kolom ini bertambah 10 sehingga menjadi <b>${digA}</b>. <br>Lalu lakukan pengurangan: ${digA} − ${digB} = ${diff}. Tulis hasil di bawah.`;
+                } else {
+                    const diff = digA - digB;
+                    results[i] = diff.toString();
+                    stepExplanation += `Hitung pengurangan sederhana: ${digA} − ${digB} = ${diff}. Tulis hasil di bawah.`;
+                }
+
+                steps.push({
+                    type: 'calc',
+                    explanation: stepExplanation,
+                    carries: Array(maxLen).fill(' '),
+                    borrows: [...borrows],
+                    activeCol: i,
+                    currentRes: [...results]
+                });
+            }
+
+            appState.vsim.steps = steps;
+        }
+
+        function renderVsim() {
+            const step = appState.vsim.steps[appState.vsim.currentStep];
+            if (!step) return;
+
+            const maxLen = Math.max(appState.vsim.a.toString().length, appState.vsim.b.toString().length);
+            const strA = appState.vsim.a.toString().padStart(maxLen, ' ');
+            const strB = appState.vsim.b.toString().padStart(maxLen, ' ');
+
+            let html = `<table class="mx-auto text-right font-mono text-3xl md:text-4xl text-white">`;
+
+            // Row 1: Borrow Indicator row (shows the augmented number after borrowing, e.g. 13)
+            html += `<tr>`;
+            for (let i = 0; i < maxLen; i++) {
+                let borrowVal = step.borrows[i];
+                let cellClass = "w-10 h-10 text-center text-xs font-black ";
+
+                if (borrowVal !== ' ' && borrowVal !== undefined && parseInt(borrowVal) > 9) {
+                    html += `<td class="${cellClass} text-rose-400 bg-rose-950/40 rounded-full border border-rose-500/20">${borrowVal}</td>`;
+                } else {
+                    html += `<td class="w-10 h-10"></td>`;
+                }
+            }
+            html += `<td class="w-10"></td></tr>`;
+
+            // Row 2: Number A
+            html += `<tr>`;
+            for (let i = 0; i < maxLen; i++) {
+                let dig = strA[i];
+                let isBorrowed = step.borrows[i] !== ' ' && step.borrows[i] !== undefined && parseInt(step.borrows[i]) <= 9;
+                let isCurrent = step.activeCol === i;
+                let bgStyle = isCurrent ? "bg-indigo-900 border border-indigo-500 rounded" : "";
+                
+                if (isBorrowed) {
+                    // Show crossed out digit with modified value on top
+                    html += `<td class="w-10 h-12 text-center relative ${bgStyle}"><span class="absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-bold text-rose-400">${step.borrows[i]}</span><span class="borrowed-cross opacity-40">${dig}</span></td>`;
+                } else {
+                    html += `<td class="w-10 h-12 text-center ${bgStyle}">${dig === ' ' ? '' : dig}</td>`;
+                }
+            }
+            html += `<td></td></tr>`;
+
+            // Row 3: Number B + Minus Operator
+            html += `<tr>`;
+            for (let i = 0; i < maxLen; i++) {
+                let dig = strB[i];
+                let isCurrent = step.activeCol === i;
+                let bgStyle = isCurrent ? "bg-indigo-900 border border-indigo-500 rounded" : "";
+                html += `<td class="w-10 h-12 text-center ${bgStyle}">${dig === ' ' ? '' : dig}</td>`;
+            }
+            html += `<td class="w-10 h-12 text-center text-rose-500 font-bold">-</td></tr>`;
+
+            // Row 4: Horizontal divider line
+            html += `<tr><td colspan="${maxLen + 1}" class="p-0"><hr class="border-t-4 border-slate-500 my-1"></td></tr>`;
+
+            // Row 5: Results row
+            html += `<tr>`;
+            for (let i = 0; i < maxLen; i++) {
+                let rDig = step.currentRes[i];
+                let isCurrent = step.activeCol === i;
+                let textClass = isCurrent ? "text-amber-300 font-black scale-110" : "text-white";
+                html += `<td class="w-10 h-12 text-center ${textClass}">${rDig === ' ' || rDig === undefined ? '' : rDig}</td>`;
+            }
+            html += `<td></td></tr>`;
+
+            html += `</table>`;
+
+            document.getElementById('vsim-display-container').innerHTML = html;
+            document.getElementById('vsim-explanation').innerHTML = `
+                <span class="text-xs font-bold text-indigo-500 uppercase block tracking-wider mb-2">Penjelasan Langkah:</span>
+                <p class="leading-relaxed text-indigo-950 font-semibold">${step.explanation}</p>
+            `;
+
+            // Update step footer
+            document.getElementById('vsim-step-text').textContent = `Langkah ${appState.vsim.currentStep + 1} / ${appState.vsim.steps.length}`;
+            document.getElementById('btn-vsim-prev').disabled = appState.vsim.currentStep === 0;
+            document.getElementById('btn-vsim-next').disabled = appState.vsim.currentStep === appState.vsim.steps.length - 1;
+        }
+
+        function changeVsimStep(delta) {
+            const nextIdx = appState.vsim.currentStep + delta;
+            if (nextIdx >= 0 && nextIdx < appState.vsim.steps.length) {
+                playSfx('click');
+                appState.vsim.currentStep = nextIdx;
+                renderVsim();
+            }
+        }
+
+
+        // ================= KUIS SUBTRACTION INTERACTIVE ENGINE =================
+        function initQuiz() {
+            // Load saved score
+            const savedScore = localStorage.getItem('smp_math_sub_stars');
+            if (savedScore) {
+                appState.quizScores = parseInt(savedScore) || 0;
+            }
+            updateScoreDisplay();
+
+            renderQuizControlPanel();
+            generateNextQuizQuestion();
+        }
+
+        function setQuizMode(mode) {
+            playSfx('click');
+            appState.quiz.mode = mode;
+
+            renderQuizControlPanel();
+            generateNextQuizQuestion();
+        }
+
+        function renderQuizControlPanel() {
+            const activeMode = appState.quiz.mode;
+
+            // Highlight active button
+            const modes = ['puluhan', 'ratusan', 'ribuan', 'kasus_nol'];
+            modes.forEach(m => {
+                const btn = document.getElementById('btn-mode-' + m);
+                if (m === activeMode) {
+                    btn.className = "w-full py-2.5 px-4 text-xs font-black rounded-xl border-2 border-indigo-500 bg-indigo-600 text-white text-left shadow-sm flex justify-between items-center";
+                } else {
+                    btn.className = "w-full py-2.5 px-4 text-xs font-semibold rounded-xl border border-slate-200 bg-slate-50 text-slate-700 hover:bg-slate-100 text-left transition";
+                }
+            });
+
+            // Update stats
+            document.getElementById('quiz-session-stats').textContent = `${appState.quiz.sessionCorrect} / ${appState.quiz.sessionTotal} Dijawab`;
+        }
+
+        function generateNextQuizQuestion() {
+            const mode = appState.quiz.mode;
+
+            let numA = 0;
+            let numB = 0;
+            let ans = 0;
+            let promptText = "";
+
+            const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+            if (mode === 'puluhan') {
+                // Ensure always borrowing
+                let uA = rand(0, 5); // Satuan A kecil
+                let uB = rand(uA + 1, 9); // Satuan B besar (memaksa meminjam)
+                let tA = rand(2, 9);
+                let tB = rand(1, tA - 1);
+
+                numA = tA * 10 + uA;
+                numB = tB * 10 + uB;
+            } 
+            else if (mode === 'ratusan') {
+                // Force double borrowing
+                let uA = rand(0, 4);
+                let uB = rand(uA + 1, 9);
+                let tA = rand(1, 5);
+                let tB = rand(tA + 1, 9);
+                let hA = rand(3, 9);
+                let hB = rand(1, hA - 1);
+
+                numA = hA * 100 + tA * 10 + uA;
+                numB = hB * 100 + tB * 10 + uB;
+            } 
+            else if (mode === 'ribuan') {
+                numA = rand(1500, 9999);
+                numB = rand(100, numA - 100);
+            } 
+            else if (mode === 'kasus_nol') {
+                // Tricky zero borrowing (e.g. 1005 - 378)
+                let zeros = rand(1, 2);
+                if (zeros === 1) {
+                    numA = rand(1, 9) * 105 + rand(1, 3); // some intermediate zero
+                    numB = rand(50, numA - 10);
+                } else {
+                    numA = rand(1, 9) * 1002 + rand(1, 3); // double zeros
+                    numB = rand(100, numA - 50);
+                }
+            }
+
+            ans = numA - numB;
+            promptText = `${numA} − ${numB} = ?`;
+
+            // Generate distractors
+            let options = [ans];
+            let tries = 0;
+            let range = ans > 1000 ? 50 : (ans > 100 ? 15 : 8);
+
+            while (options.length < 4 && tries < 100) {
+                let offset = rand(-range, range);
+                if (offset === 0) offset = (Math.random() > 0.5 ? 1 : -1) * 10;
+                let wrongVal = ans + offset;
+
+                // Carry / Borrow mistake simulation (often off by 10 or 100)
+                if (Math.random() > 0.7) {
+                    let offMultiplier = Math.random() > 0.5 ? 10 : 100;
+                    wrongVal = ans + (Math.random() > 0.5 ? 1 : -1) * offMultiplier;
+                }
+
+                if (wrongVal > 0 && wrongVal !== ans && !options.includes(wrongVal)) {
+                    options.push(wrongVal);
+                }
+                tries++;
+            }
+
+            // Fallback unique answers
+            while (options.length < 4) {
+                let fallback = ans + (options.length * 5);
+                if (!options.includes(fallback)) options.push(fallback);
+            }
+
+            // Shuffle options
+            options.sort(() => Math.random() - 0.5);
+
+            appState.quiz.currentQuestion = {
+                numA,
+                numB,
+                ans,
+                promptText,
+                options,
+                correctIdx: options.indexOf(ans)
+            };
+
+            appState.quiz.answered = false;
+            appState.quiz.chosenIdx = -1;
+
+            // Render UI elements
+            document.getElementById('quiz-active-status').textContent = "Menunggu Jawaban";
+            document.getElementById('quiz-active-status').className = "text-xs font-bold text-slate-400";
+            document.getElementById('quiz-active-prompt').textContent = promptText;
+            document.getElementById('quiz-active-solution-card').classList.add('hidden');
+
+            renderQuizOptions();
+        }
+
+        function renderQuizOptions() {
+            const q = appState.quiz.currentQuestion;
+            const container = document.getElementById('quiz-active-options');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = getQuizOptionStyle(idx);
+                btn.innerHTML = formatNumberGrouping(opt);
+                btn.disabled = appState.quiz.answered;
+                btn.onclick = () => submitQuizAnswer(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function getQuizOptionStyle(optIdx) {
+            const answered = appState.quiz.answered;
+            const baseClass = "py-4 px-3 border-2 text-center text-xl font-black rounded-2xl transition duration-150 w-full ";
+
+            if (answered) {
+                const chosen = appState.quiz.chosenIdx;
+                const correct = appState.quiz.currentQuestion.correctIdx;
+
+                if (optIdx === correct) {
+                    return baseClass + "bg-emerald-500 border-emerald-700 text-white scale-102 shadow-md";
+                }
+                if (optIdx === chosen) {
+                    return baseClass + "bg-rose-500 border-rose-700 text-white";
+                }
+                return baseClass + "bg-slate-50 border-slate-200 text-slate-300";
+            }
+
+            return baseClass + "bg-indigo-50 hover:bg-indigo-100 border-indigo-200 text-indigo-900 shadow-sm";
+        }
+
+        function submitQuizAnswer(idx) {
+            if (appState.quiz.answered) return;
+
+            appState.quiz.answered = true;
+            appState.quiz.chosenIdx = idx;
+
+            const q = appState.quiz.currentQuestion;
+            const isCorrect = idx === q.correctIdx;
+
+            appState.quiz.sessionTotal++;
+
+            if (isCorrect) {
+                playSfx('correct');
+                appState.quiz.sessionCorrect++;
+                appState.quizScores += 10;
+                document.getElementById('quiz-active-status').textContent = "Jawabanmu Benar! 🎉 (+10 ⭐)";
+                document.getElementById('quiz-active-status').className = "text-xs font-black text-emerald-600";
+            } else {
+                playSfx('wrong');
+                document.getElementById('quiz-active-status').textContent = "Oops, Belum Tepat! 😢";
+                document.getElementById('quiz-active-status').className = "text-xs font-black text-rose-600";
+            }
+
+            // Save Progress locally
+            localStorage.setItem('smp_math_sub_stars', appState.quizScores);
+
+            compileWorkedSolution();
+            renderQuizOptions();
+            updateScoreDisplay();
+            
+            document.getElementById('quiz-session-stats').textContent = `${appState.quiz.sessionCorrect} / ${appState.quiz.sessionTotal} Dijawab`;
+        }
+
+        function compileWorkedSolution() {
+            const q = appState.quiz.currentQuestion;
+            const solContainer = document.getElementById('quiz-active-solution-text');
+            
+            let html = `
+                <p class="font-semibold text-slate-800">Langkah Pengurangan Bersusun:</p>
+                <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                    <li>Tulis angka <b>${q.numA}</b> di baris atas dan <b>${q.numB}</b> lurus di bawahnya.</li>
+                    <li>Kurangkan mulai dari kolom satuan (paling kanan).</li>
+                    <li>Jika angka atas lebih kecil dari angka bawah, kurangi angka di sebelah kirinya sebesar 1 untuk dipinjamkan ke kolom saat ini (+10).</li>
+                    <li>Lanjutkan pengerjaan ke arah kiri hingga seluruh kolom selesai dihitung.</li>
+                    <li class="font-bold text-emerald-700">Hasil Akhir: ${q.numA} − ${q.numB} = ${q.ans}</li>
+                </ul>
+            `;
+
+            solContainer.innerHTML = html;
+            document.getElementById('quiz-active-solution-card').classList.remove('hidden');
+        }
+
+        function formatNumberGrouping(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function resetQuizStats() {
+            if (confirm("Apakah kamu yakin ingin mereset statistik latihan ini?")) {
+                playSfx('click');
+                appState.quiz.sessionCorrect = 0;
+                appState.quiz.sessionTotal = 0;
+                document.getElementById('quiz-session-stats').textContent = "0 / 0 Dijawab";
+                generateNextQuizQuestion();
+            }
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('header-stars').textContent = `${appState.quizScores} ⭐`;
+        }
+
+        // --- WINDOW LOAD INITIALIZER ---
+        window.onload = function() {
+            switchTab('intro');
+        };
+    </script>
+</body>
+</html>
